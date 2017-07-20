@@ -83,10 +83,10 @@ def save_edit_task(no):
 
 def __get_db_connection():
     """Will return the database connection."""
-    return psycopg2.connect(user=os.environ.get('POSTGRES_USER'),
-                            host=os.environ.get('POSTGRES_HOST'),
-                            password=os.environ.get('POSTGRES_PASSWORD'),
-                            database=os.environ.get('POSTGRES_DB'))
+    return psycopg2.connect(user=os.environ.get('POSTGRESQL_USER'),
+                            host=os.environ.get('POSTGRESQL_HOST'),
+                            password=os.environ.get('POSTGRESQL_PASSWORD'),
+                            database=os.environ.get('POSTGRESQL_DB'))
 
 
 def load_database(connection):
