@@ -1,6 +1,5 @@
 """The TODO application for demoing the bind and unbind of a apb."""
 from bottle import request, redirect, route, run, template, view
-from seed_database import load_database
 import psycopg2
 import os
 __author__ = 'shawn-hurley'
@@ -90,4 +89,15 @@ def __get_db_connection():
                             database=os.environ.get('POSTGRES_DB'))
 
 
-run()
+def load_database(connection):
+    """Execute database commands for the connection given."""
+    conn = connection.cursor()
+    conn.execute("CREATE TABLE todo (id serial PRIMARY KEY, task char(100) NOT NULL, status int NOT NULL)")
+    conn.execute("INSERT INTO todo (task,status) VALUES ('Read A-byte-of-python to get a good introduction into Python',0)")
+    conn.execute("INSERT INTO todo (task,status) VALUES ('Visit the Python website',1)")
+    conn.execute("INSERT INTO todo (task,status) VALUES ('Test various editors for and check the syntax highlighting',1)")
+    conn.execute("INSERT INTO todo (task,status) VALUES ('Choose your favorite WSGI-Framework',0)")
+    connection.commit()
+
+if __name__ == '__main__':
+    run(host='0.0.0.0', port=8080, debug=True, reloader=True)
