@@ -17,19 +17,17 @@ def todo_list():
         output = template('make_table', rows=result)
         return output
     except (TypeError, psycopg2.Error) as e:
-        print e
+        print(e)
         output = template('no_database')
         # attempt to create database
         try:
             load_database(__get_db_connection())
             return redirect('/todo')
-        except Exception, e:
+        except Exception as e:
             # if you cant create, no worries, just means DB is not bound.
-            print e
+            print(e)
             pass
         return output
-    finally:
-        c.close()
 
 
 @route('/new', method='GET')
