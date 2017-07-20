@@ -86,7 +86,7 @@ def __get_db_connection():
     return psycopg2.connect(user=os.environ.get('POSTGRESQL_USER'),
                             host=os.environ.get('POSTGRESQL_HOST'),
                             password=os.environ.get('POSTGRESQL_PASSWORD'),
-                            database=os.environ.get('POSTGRESQL_DB'))
+                            database=os.environ.get('POSTGRESQL_DATABASE'))
 
 
 def load_database(connection):
