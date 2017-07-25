@@ -4,7 +4,7 @@ import psycopg2
 import os
 __author__ = 'shawn-hurley'
 
-
+@route('/')
 @route('/todo')
 def todo_list():
     """List the all the pending task."""
