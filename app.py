@@ -11,7 +11,7 @@ def todo_list():
     try:
         conn = __get_db_connection()
         c = conn.cursor()
-        c.execute("SELECT id, task FROM todo where status=1")
+        c.execute("SELECT id, task FROM todo_app.todo where status=1")
         result = c.fetchall()
         output = template('make_table', rows=result)
         return output
@@ -43,7 +43,7 @@ def save_new_item():
         new = request.POST.task.strip()
         conn = __get_db_connection()
         c = conn.cursor()
-        c.execute("INSERT INTO todo(task,status) VALUES(%s,%s)", (new, 1))
+        c.execute("INSERT INTO todo_app.todo(task,status) VALUES(%s,%s)", (new, 1))
         conn.commit()
         c.close()
         return redirect('/todo')
@@ -56,7 +56,7 @@ def edit_task(no):
     """Edit a task."""
     conn = __get_db_connection()
     c = conn.cursor()
-    c.execute("SELECT task from todo WHERE id=%s", str(no))
+    c.execute("SELECT task from todo_app.todo WHERE id=%s", str(no))
     cur_data = c.fetchone()
     return template('edit_task', old=cur_data, no=no)
 
@@ -73,7 +73,7 @@ def save_edit_task(no):
             status = 0
         conn = __get_db_connection()
         c = conn.cursor()
-        c.execute("UPDATE todo SET task = %s, status = %s WHERE id = %s ",
+        c.execute("UPDATE todo_app.todo SET task = %s, status = %s WHERE id = %s ",
                   (edit, status, str(no)))
         conn.commit()
         return redirect('/todo')
@@ -92,11 +92,11 @@ def __get_db_connection():
 def load_database(connection):
     """Execute database commands for the connection given."""
     conn = connection.cursor()
-    conn.execute("CREATE TABLE todo (id serial PRIMARY KEY, task char(100) NOT NULL, status int NOT NULL)")
-    conn.execute("INSERT INTO todo (task,status) VALUES ('Read A-byte-of-python to get a good introduction into Python',0)")
-    conn.execute("INSERT INTO todo (task,status) VALUES ('Visit the Python website',1)")
-    conn.execute("INSERT INTO todo (task,status) VALUES ('Test various editors for and check the syntax highlighting',1)")
-    conn.execute("INSERT INTO todo (task,status) VALUES ('Choose your favorite WSGI-Framework',0)")
+    conn.execute("CREATE TABLE todo_app.todo (id serial PRIMARY KEY, task char(100) NOT NULL, status int NOT NULL)")
+    conn.execute("INSERT INTO todo_app.todo (task,status) VALUES ('Read A-byte-of-python to get a good introduction into Python',0)")
+    conn.execute("INSERT INTO todo_app.todo (task,status) VALUES ('Visit the Python website',1)")
+    conn.execute("INSERT INTO todo_app.todo (task,status) VALUES ('Test various editors for and check the syntax highlighting',1)")
+    conn.execute("INSERT INTO todo_app.todo (task,status) VALUES ('Choose your favorite WSGI-Framework',0)")
     connection.commit()
 
 if __name__ == '__main__':
