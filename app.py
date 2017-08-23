@@ -93,10 +93,10 @@ def load_database(connection):
     """Execute database commands for the connection given."""
     conn = connection.cursor()
     conn.execute("CREATE TABLE todo_app.todo (id serial PRIMARY KEY, task char(100) NOT NULL, status int NOT NULL)")
-    conn.execute("INSERT INTO todo_app.todo (task,status) VALUES ('Read A-byte-of-python to get a good introduction into Python',0)")
-    conn.execute("INSERT INTO todo_app.todo (task,status) VALUES ('Visit the Python website',1)")
-    conn.execute("INSERT INTO todo_app.todo (task,status) VALUES ('Test various editors for and check the syntax highlighting',1)")
-    conn.execute("INSERT INTO todo_app.todo (task,status) VALUES ('Choose your favorite WSGI-Framework',0)")
+    conn.execute("INSERT INTO todo_app.todo (task,status) VALUES ('Take a quick glance at the ansible-playbook-bundle repo on github',0)")
+    conn.execute("INSERT INTO todo_app.todo (task,status) VALUES ('Test ansible playbook bundles examples using catasb',1)")
+    conn.execute("INSERT INTO todo_app.todo (task,status) VALUES ('Check out the Ansible Service Broker repo to see the latest features.',1)")
+    conn.execute("INSERT INTO todo_app.todo (task,status) VALUES ('Use CATASB  to set up your own cluster with ASB',0)")
     connection.commit()
 
 if __name__ == '__main__':
